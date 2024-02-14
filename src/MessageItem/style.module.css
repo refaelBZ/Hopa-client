@@ -1,0 +1,28 @@
+.message{
+    background-color: rgb(196, 255, 199);
+    width: 300px;
+    min-width: 30px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: start;
+    border-radius: 25px;
+    gap: 5px;
+}
+
+.name{
+    font-size: 18px;
+    font-weight: bold;
+    color: blue;
+}
+
+.content{
+    font-size: 16px;
+    color: rgb(88, 88, 88);
+}
+
+.time{
+    font-size: 12px;
+    color: rgb(87, 134, 89)
+}
