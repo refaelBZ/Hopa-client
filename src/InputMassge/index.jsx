@@ -19,9 +19,6 @@ export default function InputMassge() {
     socket.emit("clientMessage", input);
   };
 
-  // useEffect(() => {
-
-  // }, [handleClick]);
 
   useEffect(() => {
     socket.on("serverMessage", (arg) => {
