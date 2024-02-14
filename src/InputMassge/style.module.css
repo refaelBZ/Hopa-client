@@ -1,0 +1,73 @@
+.wavegroup {
+    position: relative;
+  }
+  
+  .wavegroup .input {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid #515151;
+    background: transparent;
+  }
+  
+  .wavegroup .input:focus {
+    outline: none;
+  }
+  
+  .wavegroup .label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    display: flex;
+  }
+  
+  .wavegroup .labelchar {
+    transition: 0.2s ease all;
+    transition-delay: calc(var(--index) * .05s);
+  }
+  
+  .wavegroup .input:focus ~ label .labelchar,
+  .wavegroup .input:valid ~ label .labelchar {
+    transform: translateY(-20px);
+    font-size: 14px;
+    color: #5264AE;
+  }
+  
+  .wavegroup .bar {
+    position: relative;
+    display: block;
+    width: 200px;
+  }
+  
+  .wavegroup .bar:before,.wavegroup .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+  
+  .wavegroup .bar:before {
+    left: 50%;
+  }
+  
+  .wavegroup .bar:after {
+    right: 50%;
+  }
+  
+  .wavegroup .input:focus ~ .bar:before,
+  .wavegroup .input:focus ~ .bar:after {
+    width: 50%;
+  }
+  
+  
