@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { socket } from './socket';
-
+import InputMassge from "./InputMassge";
+import MessegesList from "./MessegesList";
 export default function App() {
 
 
@@ -11,13 +12,14 @@ export default function App() {
   };
 
   useEffect(() => {
+
+    socket.on("connection", console.log("connection has been established"))
+
     socket.on("serverMessage", (arg) => {
       console.log(arg);
       setArg(arg)
 
-      socket.on("msgHistory", (arg) => {
-        console.log(arg);
-        setArg(arg)});
+
     
 
     });
@@ -34,8 +36,11 @@ export default function App() {
 
   return (
     <div className="App">
-      <button onClick={handleClick}>Send</button>
-      {arg}
+      {/* <button onClick={handleClick}>Send</button>
+      {arg} */}
+      <MessegesList/>
+
+      
     </div>
   );
 }
