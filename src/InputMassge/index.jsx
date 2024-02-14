@@ -4,13 +4,11 @@ import { socket } from "../socket";
 import { useEffect, useState } from "react";
 
 import MessageItem from "../MessageItem/MessageItem";
-import { list } from "postcss";
 
 export default function InputMassge() {
   const [arg, setArg] = useState("");
   const [input, setInput] = useState("");
-  
-  
+
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -19,9 +17,9 @@ export default function InputMassge() {
     socket.emit("clientMessage", input);
   };
 
-useEffect(()=>{
-setListMessage
-} ,[handleClick])
+  useEffect(() => {
+    
+  }, [handleClick]);
 
   useEffect(() => {
     socket.on("serverMessage", (arg) => {
@@ -44,8 +42,24 @@ setListMessage
         />
         <div className={styles.bar}></div>
       </div>
-      <button onClick={handleClick}>Send</button>
-      <MessageItem content ={input}/>
+      <button className={styles.button} onClick={handleClick}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+          ></path>
+        </svg>
+        Send
+      </button>
+      <MessageItem content={input} />
     </>
   );
 }
