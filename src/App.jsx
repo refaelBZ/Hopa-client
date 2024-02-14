@@ -13,7 +13,11 @@ export default function App() {
 
   useEffect(() => {
 
-    socket.on("connection", console.log("connection has been established"))
+    socket.on("idToUser", (arg) => {
+      console.log(arg);
+    });
+
+//TODO add id to the localstorage
 
     socket.on("serverMessage", (arg) => {
       console.log(arg);

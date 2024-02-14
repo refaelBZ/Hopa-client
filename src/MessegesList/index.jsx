@@ -5,25 +5,25 @@ import InputMassge from "../InputMassge";
 import MessageItem from "../MessageItem/MessageItem";
 import {socket} from "../socket";
 
-const messagesDemo =[{
-    content : "hello world! it's my first message here",
-    sender : "Jacobnbbb",
-    time : "10:00",
-},
-{
-    content : "hello world! it's my first message here",
-    sender : "Jacob",
-    time : "10:00",
-},
-{
-    content : "hello world! it's my first message here",
-    sender : "Jacob",
-    time : "10:00",
-}
-]
+// const messagesDemo =[{
+//     content : "hello world! it's my first message here",
+//     sender : "Jacobnbbb",
+//     time : "10:00",
+// },
+// {
+//     content : "hello world! it's my first message here",
+//     sender : "Jacob",
+//     time : "10:00",
+// },
+// {
+//     content : "hello world! it's my first message here",
+//     sender : "Jacob",
+//     time : "10:00",
+// }
+// ]
 
 export default function MessegesList() {
-  const [messages, setMessages] = useState(messagesDemo);
+  const [messages, setMessages] = useState([]); // הגדרת ערך התחלתי כמערך ריק
 
   console.log("messages",messages)
 
@@ -53,10 +53,10 @@ export default function MessegesList() {
 
   return (
     <div> 
-      {/* {messages.map(m=><div>1</div>)} */}
-      {messages.map((msg, index) => (
-        <div key={index}>{<MessageItem content={msg.content} sender={msg.sender} time={msg.time} /> }</div>
-      ))}
+{messages.map((msg, index) => (
+    <div key={index}>{<MessageItem message={msg} />}</div>
+))}
+
 
       <InputMassge/>
     </div>
