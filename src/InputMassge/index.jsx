@@ -7,10 +7,10 @@ import MessageItem from "../MessageItem/MessageItem";
 import { list } from "postcss";
 
 export default function InputMassge() {
-  cosnt [listMessage,setListMessage]=useState('') 
   const [arg, setArg] = useState("");
   const [input, setInput] = useState("");
-
+  
+  
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -20,7 +20,7 @@ export default function InputMassge() {
   };
 
 useEffect(()=>{
-
+setListMessage
 } ,[handleClick])
 
   useEffect(() => {
