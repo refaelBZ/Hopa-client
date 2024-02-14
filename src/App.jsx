@@ -1,7 +1,7 @@
 // import { useEffect, useState } from 'react';
 // import { socket } from './socket';
 import InputMassge from "./InputMassge";
-
+import MessegesList from "./MessegesList";
 export default function App() {
 
 
@@ -27,7 +27,7 @@ export default function App() {
     <div className="App">
       {/* <button onClick={handleClick}>Send</button>
       {arg} */}
-      <InputMassge/>
+      <MessegesList/>
     </div>
   );
 }

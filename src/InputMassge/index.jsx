@@ -2,24 +2,26 @@ import React from "react";
 import styles from "./style.module.css";
 import { socket } from "../socket";
 import { useEffect, useState } from "react";
-
 import MessageItem from "../MessageItem/MessageItem";
 
 export default function InputMassge() {
   const [arg, setArg] = useState("");
   const [input, setInput] = useState("");
+  const [time, setTime] = useState();
 
   const handleChange = (e) => {
+    e.preventDefault();
     setInput(e.target.value);
+    setTime(Date.now());
   };
 
   const handleClick = () => {
     socket.emit("clientMessage", input);
   };
 
-  useEffect(() => {
-    
-  }, [handleClick]);
+  // useEffect(() => {
+
+  // }, [handleClick]);
 
   useEffect(() => {
     socket.on("serverMessage", (arg) => {
@@ -33,6 +35,7 @@ export default function InputMassge() {
 
   return (
     <>
+      <MessageItem content={input} time={time} />
       <div className={styles.wavegroup}>
         <input
           required=""
@@ -40,6 +43,7 @@ export default function InputMassge() {
           onChange={handleChange}
           className={styles.input}
         />
+
         <div className={styles.bar}></div>
       </div>
       <button className={styles.button} onClick={handleClick}>
@@ -59,7 +63,6 @@ export default function InputMassge() {
         </svg>
         Send
       </button>
-      <MessageItem content={input} />
     </>
   );
 }
