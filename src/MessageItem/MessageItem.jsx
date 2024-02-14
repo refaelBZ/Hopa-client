@@ -5,6 +5,7 @@ export default function MessageItem({
   content = "hello world! it's my first message here",
   sender = "Jacob",
   time = "10:00",
+ 
 }) {
   return (
     <div className={styles.message}>
