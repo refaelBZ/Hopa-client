@@ -17,10 +17,7 @@ export default function App() {
 
       socket.on("msgHistory", (arg) => {
         console.log(arg);
-        setArg(arg)
-      
-  
-      });
+        setArg(arg)});
     
 
     });
