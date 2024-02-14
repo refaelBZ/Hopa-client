@@ -4,8 +4,10 @@ import { socket } from "../socket";
 import { useEffect, useState } from "react";
 
 import MessageItem from "../MessageItem/MessageItem";
+import { list } from "postcss";
 
 export default function InputMassge() {
+  cosnt [listMessage,setListMessage]=useState('') 
   const [arg, setArg] = useState("");
   const [input, setInput] = useState("");
 
@@ -16,6 +18,10 @@ export default function InputMassge() {
   const handleClick = () => {
     socket.emit("clientMessage", input);
   };
+
+useEffect(()=>{
+
+} ,[handleClick])
 
   useEffect(() => {
     socket.on("serverMessage", (arg) => {
