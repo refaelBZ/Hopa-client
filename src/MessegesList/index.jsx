@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import InputMassge from "../InputMassge";
 import MessageItem from "../MessageItem/MessageItem";
+import {socket} from "../socket";
 
 const messagesDemo = [
   {
@@ -22,15 +23,29 @@ const messagesDemo = [
   },
 ];
 
-export default function MessegesList({ socket }) {
+export default function MessegesList() {
   const [messages, setMessages] = useState(messagesDemo);
 
-  useEffect(() => {
-    if (!socket) return;
+  console.log("messages",messages)
 
-    socket.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+  useEffect(() => {
+
+    socket.on("msgHistory", (arg) => {
+      console.log("msgHistory",arg);
+      setMessages(arg)
     });
+      
+  
+ 
+  }, [])
+  
+
+  // useEffect(() => {
+  //   if (!socket) return;
+    
+  //   socket.on("message", (message) => {
+  //     setMessages((prevMessages) => [...prevMessages, message]);
+  //   });
 
     return () => {
       socket.off("message");
@@ -38,7 +53,8 @@ export default function MessegesList({ socket }) {
   }, [socket]);
 
   return (
-    <div>
+    <div> 
+      {/* {messages.map(m=><div>1</div>)} */}
       {messages.map((msg, index) => (
         <div key={index}>
           {

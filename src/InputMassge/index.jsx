@@ -25,6 +25,8 @@ export default function InputMassge() {
       console.log(arg);
       setArg(arg);
     });
+
+    
     return () => {
       socket.off("serverMessage");
     };
