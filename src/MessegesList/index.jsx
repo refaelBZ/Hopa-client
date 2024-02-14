@@ -6,7 +6,7 @@ import MessageItem from "../MessageItem/MessageItem";
 
 const messagesDemo =[{
     content : "hello world! it's my first message here",
-    sender : "Jacob",
+    sender : "Jacobnbbb",
     time : "10:00",
 },
 {
@@ -25,25 +25,23 @@ export default function MessegesList({ socket }) {
   const [messages, setMessages] = useState(messagesDemo);
 
 
-
-       
-  useEffect(() => {
-    if (!socket) return;
+  // useEffect(() => {
+  //   if (!socket) return;
     
-    socket.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
+  //   socket.on("message", (message) => {
+  //     setMessages((prevMessages) => [...prevMessages, message]);
+  //   });
 
-    return () => {
-      socket.off("message");
-    };
-  }, [socket]);
+  //   return () => {
+  //     socket.off("message");
+  //   };
+  // }, [socket]);
 
   return (
     <div> 
       
       {messages.map((msg, index) => (
-        <div key={index}>{msg}</div>
+        <div key={index}>{<MessageItem content={msg.content} sender={msg.sender} time={msg.time} /> }</div>
       ))}
 
       <InputMassge/>
