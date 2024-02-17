@@ -27,6 +27,11 @@ export default function MessegesList() {
 
   console.log("messages", messages);
 
+  // פונקציה להוספת הודעה חדשה לרשימת ההודעות
+  const addMessage = (newMessage) => {
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
+ 
   useEffect(() => {
     socket.on("msgHistory", (arg) => {
       console.log("msgHistory", arg);
@@ -38,7 +43,7 @@ export default function MessegesList() {
     if (!socket) return;
 
     socket.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+      addMessage(message);
     });
 
     return () => {
@@ -47,13 +52,12 @@ export default function MessegesList() {
   }, [socket]);
 
   return (
-    <div> 
-{messages.map((msg, index) => (
-    <div key={index}>{<MessageItem message={msg} />}</div>
-))}
+    <div>
+      {messages.map((msg, index) => (
+        <div key={index}>{<MessageItem message={msg}/>}</div>
+      ))}
 
-
-      <InputMassge/>
+      <InputMassge onMessageSend={addMessage} />
     </div>
   );
 }
