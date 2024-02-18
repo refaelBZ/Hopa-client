@@ -17,7 +17,7 @@ export default function InputMassge({onMessageSend}) {
   };
 
   const handleClick = () => {
-    onMessageSend(input);
+    // onMessageSend(input);
     socket.emit("clientMessage", input); 
   };
 
