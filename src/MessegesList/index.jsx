@@ -1,59 +1,55 @@
-import styles from "./style.module.css";
-import { useEffect, useState } from "react";
-import React from "react";
-import InputMassge from "../InputMassge";
-import MessageItem from "../MessageItem/MessageItem";
-import { socket } from "../socket";
+import React, { useEffect, useState, useRef } from 'react';
+import styles from './style.module.css';
+import InputMassge from '../InputMassge';
+import MessageItem from '../MessageItem/MessageItem';
+import { socket } from '../socket';
 
-
-export default function MessegesList() {
-  const [messages, setMessages] = useState([]); // הגדרת ערך התחלתי כמערך ריק
-
+export default function MessagesList() {
+  const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null); // הוספת useRef לגלילה אוטומטית
 
   useEffect(() => {
     // טעינת ההודעות מהאחסון המקומי
-    const storedMessages = JSON.parse(localStorage.getItem("messages") || '[]');
+    const storedMessages = JSON.parse(localStorage.getItem('messages') || '[]');
     if (storedMessages.length > 0) {
       setMessages(storedMessages);
     }
   }, []);
-  
-  // פונקציה להוספת הודעה חדשה לרשימת ההודעות
-  const addMessage = (newMessage) => {
-    const updatedMessages = [ ...newMessage];
-    setMessages(updatedMessages)
-    console.log(updatedMessages)
-    localStorage.setItem("messages", JSON.stringify(updatedMessages));
-  };
- 
 
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("message", (message) => {
-      addMessage(message);
-    });
+    const handleNewMessage = (newMessage) => {
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    };
 
-    socket.on("msgHistory", (arg) => {
-      addMessage(arg);
-      //setMessage(arg)
-      console.log(arg);
-    });
+    socket.on('newMessage', handleNewMessage);
 
     return () => {
-      socket.off("message");
+      socket.off('newMessage', handleNewMessage);
     };
   }, [socket]);
 
-  return (
-    <div>
-      {messages.map((msg, index) => (
-        <div key={index}>
-          {<MessageItem  message={msg}/>}
-          </div>
-      ))}
+  useEffect(() => {
+    localStorage.setItem('messages', JSON.stringify(messages)); // שמירת ההודעות באחסון המקומי
+  }, [messages]);
 
-      <InputMassge onMessageSend={addMessage} />
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); // גלילה אוטומטית להודעה האחרונה
+  }, [messages]); // תלות במערך ההודעות
+
+  return (
+    <div className={styles.chatContainer}>
+      {messages.map((msg, index) => (
+        <div key={index} className={styles.messageWrapper}>
+          <MessageItem message={msg} className={styles.messageItem} />
+        </div>
+      ))}
+      <div ref={messagesEndRef} /> {/* אלמנט לגלילה */}
+      <InputMassge 
+        onMessageSend={(newMessage) => setMessages((prevMessages) => [...prevMessages, newMessage])} 
+        className={styles.inputMessage} 
+      />
     </div>
   );
 }
