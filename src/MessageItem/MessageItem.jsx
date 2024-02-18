@@ -8,15 +8,12 @@ export default function MessageItem({
  message
  
 }) 
-
 {
-  
-  console.log(message)
   return (
     <div className={styles.message}>
-      <div className={styles.name}>{message}</div>
-      <div className={styles.content}>{message.content}</div>
-      <div className={styles.time}>{message.time}</div>
+      <div className={styles.name}>{message?.sender}</div>
+      <div className={styles.content}>{message?.content}</div>
+      <div className={styles.time}>{message?.time}</div>
     </div>
   );
 }

@@ -12,16 +12,12 @@ export default function InputMassge({onMessageSend}) {
 
   const handleChange = (e) => {
     e.preventDefault();
-    setInput(e.target.value);
-    
+    setInput(e.target.value);  
     setTime(Date.now());
   };
 
   const handleClick = () => {
-
-    
     onMessageSend(input);
-    console.log(input)
     socket.emit("clientMessage", input); 
   };
 
