@@ -3,11 +3,13 @@
   }
   
   .wavegroup .input {
+    
     font-size: 16px;
     padding: 10px 10px 10px 5px;
     display: block;
     width: 200px;
-    border: none;
+    border: 1px solid ;
+    border-radius: 20px;
     border-bottom: 1px solid #515151;
     background: transparent;
   }
@@ -16,21 +18,7 @@
     outline: none;
   }
   
-  .wavegroup .label {
-    color: #999;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    display: flex;
-  }
-  
-  .wavegroup .labelchar {
-    transition: 0.2s ease all;
-    transition-delay: calc(var(--index) * .05s);
-  }
+
   
   .wavegroup .input:focus ~ label .labelchar,
   .wavegroup .input:valid ~ label .labelchar {

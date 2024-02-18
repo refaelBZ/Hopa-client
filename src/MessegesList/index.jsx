@@ -1,64 +1,59 @@
 import styles from "./style.module.css";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import InputMassge from "../InputMassge";
 import MessageItem from "../MessageItem/MessageItem";
-import {socket} from "../socket";
+import { socket } from "../socket";
 
-// const messagesDemo =[{
-//     content : "hello world! it's my first message here",
-//     sender : "Jacobnbbb",
-//     time : "10:00",
-// },
-// {
-//     content : "hello world! it's my first message here",
-//     sender : "Jacob",
-//     time : "10:00",
-// },
-// {
-//     content : "hello world! it's my first message here",
-//     sender : "Jacob",
-//     time : "10:00",
-// }
-// ]
 
 export default function MessegesList() {
   const [messages, setMessages] = useState([]); // הגדרת ערך התחלתי כמערך ריק
 
-  console.log("messages",messages)
 
   useEffect(() => {
+    // טעינת ההודעות מהאחסון המקומי
+    const storedMessages = JSON.parse(localStorage.getItem("messages") || '[]');
+    if (storedMessages.length > 0) {
+      setMessages(storedMessages);
+    }
+  }, []);
+  
+  // פונקציה להוספת הודעה חדשה לרשימת ההודעות
+  const addMessage = (newMessage) => {
+    const updatedMessages = [ ...newMessage];
+    setMessages(updatedMessages)
+    console.log(updatedMessages)
+    localStorage.setItem("messages", JSON.stringify(updatedMessages));
+  };
+ 
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("message", (message) => {
+      addMessage(message);
+    });
 
     socket.on("msgHistory", (arg) => {
-      console.log("msgHistory",arg);
-      setMessages(arg)
+      addMessage(arg);
+      //setMessage(arg)
+      console.log(arg);
     });
-      
-  
- 
-  }, [])
-  
 
-  // useEffect(() => {
-  //   if (!socket) return;
-    
-  //   socket.on("message", (message) => {
-  //     setMessages((prevMessages) => [...prevMessages, message]);
-  //   });
-
-  //   return () => {
-  //     socket.off("message");
-  //   };
-  // }, [socket]);
+    return () => {
+      socket.off("message");
+    };
+  }, [socket]);
 
   return (
-    <div> 
-{messages.map((msg, index) => (
-    <div key={index}>{<MessageItem message={msg} />}</div>
-))}
+    <div>
+      {messages.map((msg, index) => (
+        <div key={index}>
+          {<MessageItem  message={msg}/>}
+          </div>
+      ))}
 
-
-      <InputMassge/>
+      <InputMassge onMessageSend={addMessage} />
     </div>
   );
 }
