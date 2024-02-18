@@ -27,11 +27,20 @@ export default function MessegesList() {
 
   console.log("messages", messages);
 
+  useEffect(() => {
+    // טעינת ההודעות מהאחסון המקומי 
+    const storedMessages = JSON.parse(localStorage.getItem("messages"));
+    if (storedMessages) {
+      setMessages(storedMessages);
+    }
+  }, []);
+
   // פונקציה להוספת הודעה חדשה לרשימת ההודעות
   const addMessage = (newMessage) => {
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
+    localStorage.setItem("messages", JSON.stringify(updatedMessages));
   };
- 
   useEffect(() => {
     socket.on("msgHistory", (arg) => {
       console.log("msgHistory", arg);
@@ -54,7 +63,9 @@ export default function MessegesList() {
   return (
     <div>
       {messages.map((msg, index) => (
-        <div key={index}>{<MessageItem message={msg}/>}</div>
+        <div key={index}>
+          {<MessageItem  message={msg}/>}
+          </div>
       ))}
 
       <InputMassge onMessageSend={addMessage} />

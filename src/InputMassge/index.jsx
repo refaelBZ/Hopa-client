@@ -13,12 +13,15 @@ export default function InputMassge({onMessageSend}) {
   const handleChange = (e) => {
     e.preventDefault();
     setInput(e.target.value);
+    
     setTime(Date.now());
   };
 
   const handleClick = () => {
-    onMessageSend(input);
 
+    
+    onMessageSend(input);
+    console.log(input)
     socket.emit("clientMessage", input); 
   };
 
@@ -28,8 +31,7 @@ export default function InputMassge({onMessageSend}) {
       console.log(arg);
       setArg(arg);
     });
-
-    
+ 
     return () => {
       socket.off("serverMessage");
     };
@@ -44,7 +46,6 @@ export default function InputMassge({onMessageSend}) {
           onChange={handleChange}
           className={styles.input}
         />
-
         <div className={styles.bar}></div>
       </div>
       <button className={styles.button} onClick={handleClick}>
