@@ -1,4 +1,4 @@
-.wavegroup {
+/* .wavegroup {
     position: relative;
   }
   
@@ -90,4 +90,50 @@
   
   .text {
     margin: 0 1.5em
+  } */
+
+
+
+  .inputGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* מרווח בין האינפוט לכפתור */
+    padding: 10px; /* פדינג סביב האלמנטים */
   }
+  
+  .input {
+    flex-grow: 1;
+    padding: 10px 20px;
+    border: 2px solid #009eca; /* כחול טלגרם */
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+  }
+  
+  .button {
+    padding: 10px 15px;
+    background-color: #009eca; /* כחול טלגרם */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* מרווח בין הטקסט לאייקון */
+  }
+  
+  .button svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .button:hover {
+    background-color: #0056b3; /* כחול כהה יותר להובר */
+  }
+  
+  .button:focus {
+    outline: none;
+  }
+  

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styles from './style.module.css';
 import InputMassge from '../InputMassge';
 import MessageItem from '../MessageItem/MessageItem';
@@ -6,6 +6,7 @@ import { socket } from '../socket';
 
 export default function MessagesList() {
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null); // הוספת useRef לגלילה אוטומטית
 
   useEffect(() => {
     // טעינת ההודעות מהאחסון המקומי
@@ -29,19 +30,26 @@ export default function MessagesList() {
     };
   }, [socket]);
 
-  // שמירת ההודעות באחסון המקומי בכל פעם שהן משתנות
   useEffect(() => {
-    localStorage.setItem('messages', JSON.stringify(messages));
+    localStorage.setItem('messages', JSON.stringify(messages)); // שמירת ההודעות באחסון המקומי
   }, [messages]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); // גלילה אוטומטית להודעה האחרונה
+  }, [messages]); // תלות במערך ההודעות
+
   return (
-    <div>
+    <div className={styles.chatContainer}>
       {messages.map((msg, index) => (
-        <div key={index}>
-          <MessageItem message={msg} />
+        <div key={index} className={styles.messageWrapper}>
+          <MessageItem message={msg} className={styles.messageItem} />
         </div>
       ))}
-      <InputMassge onMessageSend={(newMessage) => setMessages((prevMessages) => [...prevMessages, newMessage])} />
+      <div ref={messagesEndRef} /> {/* אלמנט לגלילה */}
+      <InputMassge 
+        onMessageSend={(newMessage) => setMessages((prevMessages) => [...prevMessages, newMessage])} 
+        className={styles.inputMessage} 
+      />
     </div>
   );
 }
