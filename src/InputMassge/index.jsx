@@ -18,9 +18,18 @@ export default function InputMassge({onMessageSend}) {
   };
 
   const handleClick = () => {
-    // onMessageSend(input);
+    const newMessage = { content: input, sender: 'me', time: new Date().toISOString() }; // יצירת אובייקט הודעה חדש
+    onMessageSend(newMessage); // הוספת ההודעה לרשימת ההודעות
     socket.emit("clientMessage", input); 
+    // setInput(""); // איפוס תוכן הקלט לאחר שנשלח
   };
+
+  // const handleKeyPress = (e) => {
+  //   if (e.key === "Enter") {
+  //     handleClick();
+  //   }
+  // };      
+  
 
 
   useEffect(() => {
@@ -38,8 +47,8 @@ export default function InputMassge({onMessageSend}) {
 <>     
   <div className={styles.inputGroup}>
     <input
-      required=""
       type="text"
+      // onKeyDown= {(e)=>handleKeyPress()}
       onChange={handleChange}
       className={styles.input}
     />
