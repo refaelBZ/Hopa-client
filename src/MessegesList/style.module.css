@@ -1,17 +1,40 @@
 .chatContainer {
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-    margin: auto;
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    overflow: hidden;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 95vh; /* גובה קבוע לכלי הצ'אט */
+  width: 30vw;
+  min-width: 600px;
+  margin: auto;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.messagesList {
+  overflow-y: auto; /* אפשר גלילה רק לאורך הציר Y */
+  flex-grow: 1; /* לוקח את כל המקום הזמין למעט ה-input */
+  scrollbar-width: none; /* עבור Firefox */
+  -ms-overflow-style: none; /* עבור Internet Explorer 10+ */
+}
+
+.messagesList::-webkit-scrollbar {
+  display: none; /* עבור Chrome, Safari, וOpera */
+}
+
+
+.messageWrapper {
+  padding: 5px;
+}
+
+.inputContainer { /* קונטיינר חדש ל-input */
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  background-color: white;
   
-  .messageWrapper {
-    padding: 5px;
-  }
-  
+}
+
+
+
   .messageItem {
     max-width: 70%;
     padding: 10px 15px;
@@ -20,21 +43,7 @@
     word-break: break-word;
   }
   
-  /* הגדרות עבור הודעות יוצאות, ניתן להתאים אותם בהתאם ללוגיקה שלך */
-  .messageItem.outgoing {
-    background-color: #0084ff;
-    color: white;
-    margin-left: auto;
-    margin-right: 10px;
-  }
-  
-  /* הגדרות עבור הודעות נכנסות */
-  .messageItem.incoming {
-    background-color: #e5e5ea;
-    color: black;
-    margin-right: auto;
-    margin-left: 10px;
-  }
+ 
   
   .inputMessage {
     border-top: 1px solid #ccc;

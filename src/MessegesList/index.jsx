@@ -8,6 +8,7 @@ export default function MessagesList() {
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null); // הוספת useRef לגלילה אוטומטית
 
+  
   useEffect(() => {
     // טעינת ההודעות מהאחסון המקומי
     const storedMessages = JSON.parse(localStorage.getItem('messages') || '[]');
@@ -40,16 +41,20 @@ export default function MessagesList() {
 
   return (
     <div className={styles.chatContainer}>
-      {messages.map((msg, index) => (
-        <div key={index} className={styles.messageWrapper}>
-          <MessageItem message={msg} className={styles.messageItem} />
-        </div>
-      ))}
-      <div ref={messagesEndRef} /> {/* אלמנט לגלילה */}
-      <InputMassge 
-        onMessageSend={(newMessage) => setMessages((prevMessages) => [...prevMessages, newMessage])} 
-        className={styles.inputMessage} 
-      />
+      <div className={styles.messagesList}> {/* קונטיינר עבור ההודעות עם גלילה */}
+        {messages.map((msg, index) => (
+          <div key={index} className={styles.messageWrapper}>
+            <MessageItem message={msg} className={styles.messageItem} />
+          </div>
+        ))}
+        <div ref={messagesEndRef} /> {/* אלמנט לגלילה */}
+      </div>
+      <div className={styles.inputContainer}> {/* קונטיינר נפרד ל-input */}
+        <InputMassge 
+          onMessageSend={(newMessage) => setMessages((prevMessages) => [...prevMessages, newMessage])} 
+          className={styles.inputMessage} 
+        />
+      </div>
     </div>
   );
 }
