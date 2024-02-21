@@ -1,0 +1,46 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 300px;
+    width: 100vw;
+}
+
+
+.popup {
+    position: fixed; /* קובע את הפופאפ במיקום קבוע על המסך */
+    top: 50%; /* ממקם את הפופאפ במרכז הדף מבחינה אנכית */
+    left: 50%; /* ממקם את הפופאפ במרכז הדף מבחינה אופקית */
+    transform: translate(-50%, -50%); /* מתקן את המיקום למרכז מדויק */
+    width: 50%; /* רוחב הפופאפ */
+    max-width: 600px; /* מקסימום רוחב */
+    min-width: 300px; /* מינימום רוחב */
+    background-color: #f7f7f7; /* צבע רקע */
+    border-radius: 20px; /* קצוות מעוגלים */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.26); /* הוספת צל */
+    padding: 40px; /* פדינג פנימי גדול יותר למראה נפוח יותר */
+    z-index: 1000; /* הבטחה שהפופאפ יופיע מעל כל האלמנטים */
+    display: flex; /* מאפשר סידור פנימי של האלמנטים */
+    flex-direction: column; /* מסדר את האלמנטים בכיוון אנכי */
+    justify-content: center; /* ממרכז את התוכן בציר האנכי */
+    align-items: center; /* ממרכז את התוכן בציר האופקי */
+  }
+  
+  .popup input[type="text"] {
+    width: 100%; /* מאפשר לאינפוט לתפוס את כל הרוחב */
+    padding: 15px; /* פדינג יותר גדול למראה מוגדל */
+    margin-bottom: 20px; /* מרווח למטה */
+    border: 1px solid #ccc; /* גבול */
+    border-radius: 10px; /* קצוות מעוגלים יותר */
+  }
+  
+  .popup button {
+    width: 50%; /* רוחב הכפתור */
+    padding: 10px 0; /* פדינג עליון ותחתון */
+    font-size: 18px; /* גודל פונט גדול יותר */
+    border-radius: 10px; /* קצוות מעוגלים יותר */
+    /* שאר ההגדרות נשארות כמו שהן */
+  }
+  
+  
