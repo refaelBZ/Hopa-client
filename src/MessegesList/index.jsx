@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styles from './style.module.css';
-import InputMassge from '../InputMassge';
-import MessageItem from '../MessageItem/MessageItem';
-import { socket } from '../socket';
+import React, { useEffect, useState, useRef } from "react";
+import styles from "./style.module.css";
+import InputMassge from "../InputMassge";
+import MessageItem from "../MessageItem/MessageItem";
+import { socket } from "../socket";
 
 export default function MessagesList() {
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null); // הוספת useRef לגלילה אוטומטית
 
-  
   useEffect(() => {
     // טעינת ההודעות מהאחסון המקומי
-    const storedMessages = JSON.parse(localStorage.getItem('messages') || '[]');
+    const storedMessages = JSON.parse(localStorage.getItem("messages") || "[]");
     if (storedMessages.length > 0) {
       setMessages(storedMessages);
     }
@@ -24,24 +23,26 @@ export default function MessagesList() {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     };
 
-    socket.on('newMessage', handleNewMessage);
+    socket.on("newMessage", handleNewMessage);
 
     return () => {
-      socket.off('newMessage', handleNewMessage);
+      socket.off("newMessage", handleNewMessage);
     };
   }, [socket]);
 
   useEffect(() => {
-    localStorage.setItem('messages', JSON.stringify(messages)); // שמירת ההודעות באחסון המקומי
+    localStorage.setItem("messages", JSON.stringify(messages)); // שמירת ההודעות באחסון המקומי
   }, [messages]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); // גלילה אוטומטית להודעה האחרונה
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); // גלילה אוטומטית להודעה האחרונה
   }, [messages]); // תלות במערך ההודעות
 
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.messagesList}> {/* קונטיינר עבור ההודעות עם גלילה */}
+      <div className={styles.messagesList}>
+        {" "}
+        {/* קונטיינר עבור ההודעות עם גלילה */}
         {messages.map((msg, index) => (
           <div key={index} className={styles.messageWrapper}>
             <MessageItem message={msg} className={styles.messageItem} />
@@ -49,10 +50,14 @@ export default function MessagesList() {
         ))}
         <div ref={messagesEndRef} /> {/* אלמנט לגלילה */}
       </div>
-      <div className={styles.inputContainer}> {/* קונטיינר נפרד ל-input */}
-        <InputMassge 
-          onMessageSend={(newMessage) => setMessages((prevMessages) => [...prevMessages, newMessage])} 
-          className={styles.inputMessage} 
+      <div className={styles.inputContainer}>
+        {" "}
+        {/* קונטיינר נפרד ל-input */}
+        <InputMassge
+          onMessageSend={(newMessage) =>
+            setMessages((prevMessages) => [...prevMessages, newMessage])
+          }
+          className={styles.inputMessage}
         />
       </div>
     </div>

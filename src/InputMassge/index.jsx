@@ -3,22 +3,26 @@ import styles from "./style.module.css";
 import { socket } from "../socket";
 import { useEffect, useState } from "react";
 
-export default function InputMessage({onMessageSend}) {
+export default function InputMessage({ onMessageSend }) {
   const [input, setInput] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
-    setInput(e.target.value);  
+    setInput(e.target.value);
   };
 
   const handleClick = () => {
     // קריאה לשם המשתמש מ-localStorage
-    const senderName = localStorage.getItem('userInputData') || 'אנונימי'; // אם לא נמצא שם, השתמש ב-'אנונימי'
+    const senderName = localStorage.getItem("userInputData") || "אנונימי"; // אם לא נמצא שם, השתמש ב-'אנונימי'
 
-    const newMessage = { content: input, sender: senderName, time: new Date().toISOString() };
-    
+    const newMessage = {
+      content: input,
+      sender: senderName,
+      time: new Date().toISOString(),
+    };
+
     // שליחת האובייקט המלא ולא רק הטקסט
-    socket.emit("clientMessage", newMessage); 
+    socket.emit("clientMessage", newMessage);
 
     setInput(""); // איפוס תוכן הקלט לאחר שנשלח
   };
@@ -28,14 +32,14 @@ export default function InputMessage({onMessageSend}) {
       console.log(arg);
       // ניתן לעשות פעולות נוספות עם התגובה מהשרת אם יש צורך
     });
- 
+
     return () => {
       socket.off("serverMessage");
     };
   }, []);
 
   return (
-    <>     
+    <>
       <div className={styles.inputGroup}>
         <button className={styles.button} onClick={handleClick}>
           <svg
@@ -52,12 +56,17 @@ export default function InputMessage({onMessageSend}) {
               d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
             ></path>
           </svg>
-          שלח 
+          שלח
         </button>
         <input
           type="text"
           value={input}
           onChange={handleChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleClick();
+            }
+          }}
           className={styles.input}
         />
       </div>
